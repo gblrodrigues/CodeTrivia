@@ -1,4 +1,4 @@
-package com.gblrod.codetrivia.screen
+package com.gblrod.codetrivia.model
 
 data class Question(
     val text: String,
