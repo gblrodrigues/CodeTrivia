@@ -36,13 +36,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gblrod.codetrivia.model.questions
-import com.gblrod.codetrivia.ui.theme.CodeTriviaTheme
 import com.gblrod.codetrivia.ui.theme.OptionBackground
 import com.gblrod.codetrivia.ui.theme.OptionSelectedBackground
 import com.gblrod.codetrivia.ui.theme.QuizCardBackground
 import com.gblrod.codetrivia.R
 import com.gblrod.codetrivia.ui.theme.ButtonNext
+import com.gblrod.codetrivia.ui.theme.ButtonRestart
 import com.gblrod.codetrivia.ui.theme.ButtonResult
+import com.gblrod.codetrivia.ui.theme.CodeTriviaTheme
 
 @Composable
 fun Quiz(modifier: Modifier = Modifier) {
@@ -55,8 +56,8 @@ fun Quiz(modifier: Modifier = Modifier) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = "Logo do Aplicativo",
+            painter = painterResource(id = R.drawable.background),
+            contentDescription = "Background do Aplicativo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             alpha = 0.5f
@@ -157,17 +158,32 @@ fun Quiz(modifier: Modifier = Modifier) {
                 } else {
                     Button(
                         onClick = {
-                        showResult = true
-                    },
+                            if (!showResult) {
+                                showResult = true
+                            } else {
+                                currentQuestion = 0
+                                score = 0
+                                optionSelected = -1
+                                answered = false
+                                showResult = false
+                            }
+                        },
                         shape = RoundedCornerShape(16.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 8.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = ButtonResult),
+                        colors = ButtonDefaults.buttonColors(containerColor = if (!showResult) ButtonResult else ButtonRestart),
                         modifier = Modifier.fillMaxWidth(0.7f)
                     ) {
-                        Text(
-                            text = "Ver Resultado",
-                            color = Color.White,
-                        )
+                        if (!showResult) {
+                            Text(
+                                text = "Ver Resultado",
+                                color = Color.White,
+                            )
+                        } else {
+                            Text(
+                                text = "Recomeçar",
+                                color = Color.White,
+                            )
+                        }
                     }
                 }
             }
