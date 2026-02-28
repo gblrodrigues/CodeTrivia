@@ -161,6 +161,7 @@ fun Quiz(modifier: Modifier = Modifier) {
                             if (!showResult) {
                                 showResult = true
                             } else {
+                                questions = questions.shuffled()
                                 currentQuestion = 0
                                 score = 0
                                 optionSelected = -1

@@ -6,7 +6,7 @@ data class Question(
     val indexCorrect: Int
 )
 
-val questions = listOf(
+var questions = listOf(
     Question(
         text = "Quem criou o primeiro programa de computador da história?",
         options = listOf("Alan Turing", "Ada Lovelace", "Linus Torvalds", "Albert Einstein"),
